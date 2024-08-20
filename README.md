@@ -1,7 +1,8 @@
 # Web-Terminal
-Web Terminals with Kubernetes integration
 
 ## Description
+These web terminals are supposed to be integrated into the VersionWise application. Their purpose is to allow users to learn about Git commands without impacting their local machine. The terminal will be accompanied by lessons teaching the users about version control software, and a chatbot to give the user tailored feedback. More information can be found in the README.md file of the Version-Wise repository.
+The client and server in this repository were built by modifying the code in Sai Sandeep Vaddi's how-to-create-web-terminals GitHub repository.
 
 ## Table of Contents
 - [Installation](#installation)
