@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terminal-client-deployment
+  labels:
+    app: terminal-client
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: terminal-client
+  template:
+    metadata:
+      labels:
+        app: terminal-client
+    spec:
+      containers:
+      - name: client
+        image: ghcr.io/USERNAME/client-img:latest
+        imagePullPolicy: Always
+        resources: 
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
+        ports:
+        - containerPort: 1234
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
