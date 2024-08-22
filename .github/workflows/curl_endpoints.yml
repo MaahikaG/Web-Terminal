@@ -9,7 +9,7 @@ jobs:
     - uses: balchua/microk8s-actions@v0.3.2
       with:
         channel: '1.26/stable'
-        addons: '["dns", "dashboard", "istio", "registry"]'
+        addons: '["dns", "dashboard", "registry"]'
     - name: Test MicroK8s
       id: myactions
       run: |
