@@ -7,12 +7,9 @@ jobs:
     steps:
     - name: Build and Run Docker Containers
       run: |
-        cd server
-        docker build -t server-img .
+        docker build -t server-img -f ./server/Dockerfile ./server
         docker run -d -p 3000:3000 -v $(pwd):/usr/src/app --name server server_img tail -f /dev/null
-        cd ..
-        cd client
-        docker build -t client-img .
+        docker build -t client-img -f ./client/Dockerfile ./client
         docker run -d -p 1234:1234 -v $(pwd):/usr/src/app --name client client_img tail -f /dev/null
     - name: Test curl command
       run: |
