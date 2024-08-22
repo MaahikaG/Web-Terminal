@@ -5,6 +5,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v1 #checkouts your repo, so this workflow can access it
     - name: Build and Run Docker Containers
       run: |
         docker build -t server-img -f ./server/Dockerfile ./server
