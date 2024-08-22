@@ -8,10 +8,11 @@ on:
 #define jobs
 jobs:
   Deploy:
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
+    # runs-on: ${{matrix.os}}
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, windows-latest, macOS-latest]
     permissions: #make sure we add permission to read and write package
       contents: read
       packages: write
