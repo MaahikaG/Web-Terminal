@@ -1,0 +1,56 @@
+name: Publish to GHCR
+# create simple trigger based on everytime we make change to this repository
+on: 
+  push:
+    branches: [main]
+  pull_request: 
+    branches: [main]
+#define jobs
+jobs:
+  Deploy:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    permissions: #make sure we add permission to read and write package
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1 #checkouts your repo, so this workflow can access it
+      - name: Log in to GHCR
+        env:
+            REGISTRY: ghcr.io #create env called REGISTRY
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+            registry: ${{ env.REGISTRY }} #parse REGISTRY env value to here. Make sure it is correctly stating ghcr.io
+            username: ${{ github.actor }} #this will be our github account
+            password: ${{ secrets.CR_PAT }} #parse the value of repository secret called CR_PAT that we have created earlier
+      
+      - name: Build Server Docker Image
+        env:
+          REGISTRY: ghcr.io #create env called REGISTRY
+          PROJECT_ID: maahikag # Set the PROJECT_ID
+          IMAGE_NAME: server # Name of the server image
+        run: docker build -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./server/Dockerfile ./server # Build the server Docker image and tag it
+        
+      - name: Build Client Docker Image
+        env:
+          REGISTRY: ghcr.io #create env called REGISTRY
+          PROJECT_ID: maahikag # Set the PROJECT_ID
+          IMAGE_NAME: client # Name of the client image
+        run: docker build -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./client/Dockerfile ./client # Build the client Docker image and tag it
+
+      - name: Push Server Docker Image to GHCR
+        env:
+          REGISTRY: ghcr.io #create env called REGISTRY
+          PROJECT_ID: maahikag # Set the PROJECT_ID
+          IMAGE_NAME: server # Name of the server image
+        run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the server image to GHCR
+
+      - name: Push Client Docker Image to GHCR
+        env:
+          REGISTRY: ghcr.io #create env called REGISTRY
+          PROJECT_ID: maahikag # Set the PROJECT_ID
+          IMAGE_NAME: client # Name of the client image
+        run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the client image to GHCR
