@@ -4,15 +4,6 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged # Necessary to run Docker-in-Docker
-        ports:
-          - 3000:3000
-          - 1234:1234
-        volumes:
-          - /var/lib/docker
     steps:
     - name: Checkout Code
       uses: actions/checkout@v1 #checkouts your repo, so this workflow can access it
@@ -24,8 +15,8 @@ jobs:
         docker build -t client-img -f ./client/Dockerfile ./client
     - name: Run Docker Containers
       run: |
-        docker run -d -p 3000:3000 -v $(pwd):/usr/src/app --name server server-img tail -f /dev/null
-        docker run -d -p 1234:1234 -v $(pwd):/usr/src/app --name client client-img tail -f /dev/null
+        docker run -d -p 3000:3000 --network host --name server server-img tail -f /dev/null
+        docker run -d -p 1234:1234 --network host --name client client-img tail -f /dev/null
     - name: Test curl command
       run: |
         curl http://localhost:3000
