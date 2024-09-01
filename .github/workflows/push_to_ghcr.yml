@@ -34,21 +34,17 @@ jobs:
           PROJECT_ID: maahikag # Set the PROJECT_ID
           IMAGE_NAME: server-img # Name of the server image
         run: docker build -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./server/Dockerfile ./server # Build the server Docker image and tag it
-
-      - name: Change NODEIP in client/src/index.js
-        run: sed 's/NODE-IP/${{ secrets.MG_NODE_IP }}/g' ./client/src/index.js
-
-      - name: Force Update File Modification Time (Optional)
+      - name: Create a different index.tmp.js to test 
         run: |
-          # Force Docker to recognize a change by updating file modification time
-          touch ./client/index.js
+          cp ./client/src/index.js ./client/src/index.tmp.js
+          sed 's/NODE-IP/${{ secrets.MG_NODE_IP }}/g' ./client/src/index.tmp.js
           
       - name: Build Client Docker Image
         env:
           REGISTRY: ghcr.io #create env called REGISTRY
           PROJECT_ID: maahikag # Set the PROJECT_ID
           IMAGE_NAME: client-img # Name of the client image
-        run: docker build --no-cache -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./client/Dockerfile ./client # Build the client Docker image and tag it
+        run: docker build --no-cache -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./client/Dockerfile --build-arg INDEX_FILE=index.tmp.js ./client # Build the client Docker image and tag it
 
       - name: Push Server Docker Image to GHCR
         env:
@@ -63,3 +59,6 @@ jobs:
           PROJECT_ID: maahikag # Set the PROJECT_ID
           IMAGE_NAME: client-img # Name of the client image
         run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the client image to GHCR
+
+      - name: Delete index.tmp.js
+        run: rm ./client/src/index.tmp.js
