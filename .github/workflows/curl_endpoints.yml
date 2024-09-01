@@ -23,8 +23,12 @@ jobs:
         echo "SERVER_ID=$SERVER_ID" >> $GITHUB_ENV
         CLIENT_ID=$(docker ps -qf "name=client")
         echo "CLIENT_ID=$CLIENT_ID" >> $GITHUB_ENV
+    - name: Run npm start
+      run: |
+        docker exec server sh -c "npm start &"
+        docker exec client sh -c "npm start &"
     - name: Test curl command
       run: |
-        docker exec $SERVER_ID curl 127.0.0.1:3000
-        docker exec $CLIENT_ID curl 127.0.0.1:3000
+        docker exec $SERVER_ID curl localhost:3000
+        docker exec $CLIENT_ID curl localhost:1234
       
