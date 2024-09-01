@@ -36,9 +36,7 @@ jobs:
         run: docker build -t $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest -f ./server/Dockerfile ./server # Build the server Docker image and tag it
 
       - name: Change NODEIP in client/src/index.js
-        run: |
-          NODE_IP = ${{ secrets.MG_NODE_IP }}
-          sed -i 's/NODEIP/'"$NODE_IP"'/g' ./client/src/index.js
+        run: sed 's/NODE-IP/${{ secrets.MG_NODE_IP }}/g' ./client/src/index.js
           
       - name: Build Client Docker Image
         env:
