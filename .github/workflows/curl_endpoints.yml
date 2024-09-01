@@ -21,7 +21,7 @@ jobs:
       run: |
         SERVER_ID=$(docker ps -qf "name=server")
         echo "SERVER_ID=$SERVER_ID" >> $GITHUB_ENV
-        CONTAINER_ID=$(docker ps -qf "name=client")
+        CLIENT_ID=$(docker ps -qf "name=client")
         echo "CLIENT_ID=$CLIENT_ID" >> $GITHUB_ENV
     - name: Test curl command
       run: |
