@@ -25,6 +25,6 @@ jobs:
         echo "CLIENT_ID=$CLIENT_ID" >> $GITHUB_ENV
     - name: Test curl command
       run: |
-        docker exec $SERVER_ID curl localhost/status
-        docker exec $CLIENT_ID curl localhost/status
+        docker exec $SERVER_ID curl localhost:3000
+        docker exec $CLIENT_ID curl localhost:3000
       
