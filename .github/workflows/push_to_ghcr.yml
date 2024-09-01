@@ -38,7 +38,7 @@ jobs:
       - name: Change to My Node IP 
         run: |
           cd ./client/src
-          sed -i index.js 's/NODE-IP/${{ secrets.MG_NODE_IP }}/g' index.js
+          sed -i.bak 's/NODE-IP/'"${{ secrets.MG_NODE_IP }}"'/g' index.js
           cd ..
           cd ..
           
@@ -66,6 +66,6 @@ jobs:
       - name: Revert index.tmp.js
         run: |
           cd ./client/src
-          sed -i index.js 's/${{ secrets.MG_NODE_IP }}/NODE-IP/g' index.js
+          sed -i.bak 's/'"${{ secrets.MG_NODE_IP }}"'/NODE-IP/g' index.js
           cd ..
           cd ..
