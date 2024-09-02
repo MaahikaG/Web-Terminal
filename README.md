@@ -8,7 +8,7 @@ The client and server in this repository were built by modifying the code in Sai
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [CI/CD Pipeline](#ci/cd)
+- [CI/CD](#ci/cd)
 
 ## Installation
 The Kubernetes Web Terminal is still in its production stage, so these are just the installation steps to get to the current MVP.
@@ -80,7 +80,7 @@ The next steps for the web terminals are:
   - Even if the user closes their browser window, their server container should remember the changes made
 
 ## CI/CD
-CI Pipeline
-- Whenever anyone pushes code to any of the branches, there will be a test to see if we can curl the endpoints of both the server and client within the docker containers
-CD Pipeline
-- Whenever anyone pushes/merges to main, the server and client images will be updated in Maahika's Github Container Registry, and the NODE-IP address within client/src/index.js will be changed to Maahika's Node IP address
+-CI Pipeline
+  - Whenever anyone pushes code to any of the branches, there will be a test to see if we can curl the endpoints of both the server and client within the docker containers
+- CD Pipeline
+  - Whenever anyone pushes/merges to main, the server and client images will be updated in Maahika's Github Container Registry, and the NODE-IP address within client/src/index.js will be changed to Maahika's Node IP address
