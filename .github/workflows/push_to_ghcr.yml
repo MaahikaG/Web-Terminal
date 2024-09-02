@@ -58,19 +58,19 @@ jobs:
           --file ./client/Dockerfile \
           --push ./client
           
-      - name: Push Server Docker Image to GHCR
-        env:
-          REGISTRY: ghcr.io #create env called REGISTRY
-          PROJECT_ID: maahikag # Set the PROJECT_ID
-          IMAGE_NAME: server-img # Name of the server image
-        run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the server image to GHCR
+      # - name: Push Server Docker Image to GHCR
+      #   env:
+      #     REGISTRY: ghcr.io #create env called REGISTRY
+      #     PROJECT_ID: maahikag # Set the PROJECT_ID
+      #     IMAGE_NAME: server-img # Name of the server image
+      #   run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the server image to GHCR
 
-      - name: Push Client Docker Image to GHCR
-        env:
-          REGISTRY: ghcr.io #create env called REGISTRY
-          PROJECT_ID: maahikag # Set the PROJECT_ID
-          IMAGE_NAME: client-img # Name of the client image
-        run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the client image to GHCR
+      # - name: Push Client Docker Image to GHCR
+      #   env:
+      #     REGISTRY: ghcr.io #create env called REGISTRY
+      #     PROJECT_ID: maahikag # Set the PROJECT_ID
+      #     IMAGE_NAME: client-img # Name of the client image
+      #   run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the client image to GHCR
 
       - name: Revert index.js
         run: |
