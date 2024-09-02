@@ -8,7 +8,7 @@ The client and server in this repository were built by modifying the code in Sai
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [CI/CD Pipeline](#ci/cd pipeline)
+- [CI/CD Pipeline](#ci/cd)
 
 ## Installation
 The Kubernetes Web Terminal is still in its production stage, so these are just the installation steps to get to the current MVP.
@@ -79,7 +79,7 @@ The next steps for the web terminals are:
 - Data persistence between sessions
   - Even if the user closes their browser window, their server container should remember the changes made
 
-## CI/CD Pipeline
+## CI/CD
 CI Pipeline
 - Whenever anyone pushes code to any of the branches, there will be a test to see if we can curl the endpoints of both the server and client within the docker containers
 CD Pipeline
