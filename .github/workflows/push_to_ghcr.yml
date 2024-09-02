@@ -38,7 +38,7 @@ jobs:
       - name: Change to My Node IP 
         run: |
           cd ./client/src
-          sed -i.bak 's/NODE-IP/'"${{ secrets.MG_NODE_IP }}"'/g' index.js
+          sed -i 's/NODE-IP/'"${{ secrets.MG_NODE_IP }}"'/g' index.js
           cd ..
           cd ..
           
@@ -63,9 +63,9 @@ jobs:
           IMAGE_NAME: client-img # Name of the client image
         run: docker push $REGISTRY/$PROJECT_ID/$IMAGE_NAME:latest # Push the client image to GHCR
 
-      - name: Revert index.tmp.js
+      - name: Revert index.js
         run: |
           cd ./client/src
-          sed -i.bak 's/'"${{ secrets.MG_NODE_IP }}"'/NODE-IP/g' index.js
+          sed -i 's/'"${{ secrets.MG_NODE_IP }}"'/NODE-IP/g' index.js
           cd ..
           cd ..
