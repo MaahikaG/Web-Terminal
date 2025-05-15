@@ -55,7 +55,7 @@ The Kubernetes Web Terminal is still in its production stage, so these are just 
   - We can use this to create our dockerconfig.json file
     - Pass the result of the previous command into this one: ```echo -n  '{"auths":{"ghcr.io":{"auth":"RESULT"}}}' | base64```
     - Modify the dockerconfig.json file within the Kubernetes folder by pasting the result of your last command where it says RESULT
-  - Create a new secret using your dockerconfig.json file: ```kubectl create -f dockerconfigjson.yaml```
+  - Create a new secret using your dockerconfig.json file: ```kubectl create -f dockerconfig.yaml```
 - Type your GitHub username where it says USERNAME within the deployment_client.yaml and deployment_server.yaml files in the Kubernetes folder
 - Run your pods and services
   ```
